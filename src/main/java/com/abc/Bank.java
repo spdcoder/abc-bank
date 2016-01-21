@@ -2,21 +2,23 @@ package com.abc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class Bank {
-    private List<Customer> customers;
+    //Provide a sorted collection
+    private TreeMap<String, Customer> customers;
 
     public Bank() {
-        customers = new ArrayList<Customer>();
+        customers = new TreeMap<String, Customer>();
     }
 
     public void addCustomer(Customer customer) {
-        customers.add(customer);
+        customers.put(customer.getName(), customer);
     }
 
     public String customerSummary() {
         String summary = "Customer Summary";
-        for (Customer c : customers)
+        for (Customer c : customers.values())
             summary += "\n - " + c.getName() + " (" + format(c.getNumberOfAccounts(), "account") + ")";
         return summary;
     }
@@ -29,7 +31,7 @@ public class Bank {
 
     public double totalInterestPaid() {
         double total = 0;
-        for(Customer c: customers)
+        for(Customer c: customers.values())
             total += c.totalInterestEarned();
         return total;
     }
